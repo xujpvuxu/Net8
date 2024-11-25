@@ -26,9 +26,12 @@ public class UserController : ControllerBase
     /// <param name="userReq"></param>
     /// <returns></returns>
     [HttpPost("")]
-    public async Task Insert(UserReq userReq)
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult> Insert(UserReq userReq)
     {
         await _userService.Insert(userReq);
+        return NoContent();
     }
 
     /// <summary>
@@ -38,17 +41,17 @@ public class UserController : ControllerBase
     /// <param name="page">分頁</param>
     /// <returns></returns>
     [HttpPost("{page}")]
-    public async Task<object> GetUser(QueryUserReq user, int page)
+    public async Task<ActionResult<object>> GetUser(QueryUserReq user, int page)
     {
         List<User> users = await _userService.GetUser(user, page);
-        return users.Select(x => new
+        return Ok(users.Select(x => new
         {
             Name = x.Name,
             Age = x.Age,
             Gender = x.Gender,
             Region = x.Region,
             City = x.City
-        });
+        }));
     }
 
     /// <summary>
@@ -56,7 +59,7 @@ public class UserController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("Group")]
-    public async  Task<ActionResult<List<UserGroupRes>>> GetGroup()
+    public async Task<ActionResult<List<UserGroupRes>>> GetGroup()
     {
         List<UserGroupRes> result = await _userService.GetGroup();
         return Ok(result);
@@ -69,9 +72,12 @@ public class UserController : ControllerBase
     /// <param name="updateAge">修改後的年齡</param>
     /// <returns></returns>
     [HttpPut("")]
-    public async Task UpdateAge(string email, int updateAge)
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult> UpdateAge(string email, int updateAge)
     {
         await _userService.UpadateAge(email, updateAge);
+        return NoContent();
     }
 
     /// <summary>
@@ -80,9 +86,12 @@ public class UserController : ControllerBase
     /// <param name="email">信箱</param>
     /// <returns></returns>
     [HttpDelete("")]
-    public async Task DeleteUser(string email)
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult> DeleteUser(string email)
     {
         await _userService.DeleteUser(email);
+        return NoContent();
     }
 
     [HttpGet("MosicName")]
