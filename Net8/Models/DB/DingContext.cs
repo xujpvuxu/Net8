@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Net8.Models;
+namespace Net8.Models.DB;
 
 public partial class DingContext : DbContext
 {

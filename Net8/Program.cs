@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Net8.DAO;
+using Net8.Interface;
+using Net8.Interface.DAO;
 using Net8.Middleware;
-using Net8.Models;
+using Net8.Models.DB;
+using Net8.Services;
 using Serilog;
 using Serilog.Events;
 
@@ -23,10 +27,14 @@ try
 
     builder.Services.AddDbContext<DingContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+    builder.Services.AddScoped<IUserService,UserService>();
+    builder.Services.AddScoped<IUserDAO,UserDAO>();
     
     var app = builder.Build();
 
     app.UseMiddleware<RequestMiddleware>();
+
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {

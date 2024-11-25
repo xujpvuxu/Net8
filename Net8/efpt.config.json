@@ -6,7 +6,7 @@
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "Models",
+   "OutputPath": "Models\/DB",
    "PreserveCasingWithRegex": true,
    "ProjectRootNamespace": "Net8",
    "Schemas": null,

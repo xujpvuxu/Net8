@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Net8.Models;
+namespace Net8.Models.DB;
 
 public partial class User
 {
