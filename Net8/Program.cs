@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using Net8.Middleware;
+using Net8.Models;
 using Serilog;
 using Serilog.Events;
 
@@ -19,6 +21,9 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
+    builder.Services.AddDbContext<DingContext>(
+        options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    
     var app = builder.Build();
 
     app.UseMiddleware<RequestMiddleware>();
